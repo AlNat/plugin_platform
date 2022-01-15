@@ -5,14 +5,15 @@ server:
       min: ${HTTP_MIN_THREADS:10}
       max: ${HTTP_MAX_THREADS:100}
       max-queue-capacity: ${HTTP_MAX_QUEUE:300}
-      acceptors: ${JETTY_ACCEPTORS_COUNT:1}
-      selectors: ${JETTY_SELECTORS_COUNT:1}
 
 spring:
   application:
     name: plugin-platform
   main:
     allow-bean-definition-overriding: true
+
+logging:
+  config: "classpath:logback-spring.xml"
 
 management:
   endpoints:

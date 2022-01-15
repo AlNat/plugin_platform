@@ -1,6 +1,7 @@
 package dev.alnat.plugin_platform.core;
 
 import dev.alnat.plugin_platform.config.PluginConfig;
+import dev.alnat.plugin_platform.core.loader.PluginLoader;
 import dev.alnat.plugin_platform.core.mapper.PluginMapper;
 import dev.alnat.plugin_platform.core.model.PluginHolder;
 import dev.alnat.plugin_platform.core.model.PluginUsage;
@@ -30,27 +31,13 @@ public class GeneralPluginPlatform implements PluginPlatform {
 
     private final PluginConfig config;
     private final PluginMapper mapper;
-    private final AutowireCapableBeanFactory beanFactory;
+    private final PluginLoader loader;
 
     /**
      * Хранилище закешированных плагинов
      */
     private final Map<String, PluginHolder> plugins = new HashMap<>();
 
-    private URLClassLoader classLoader;
-
-    @PostConstruct
-    public void init() {
-        String path = config.getPluginsFolder();
-
-        try {
-            URL pathURL = new File(path).toURI().toURL();
-            classLoader = URLClassLoader.newInstance(new URL[]{pathURL});
-        } catch (MalformedURLException e) {
-            log.error(""); // TODO
-            throw new IllegalStateException("", e);
-        }
-    }
 
     /**
      * Получение плагина
@@ -74,7 +61,7 @@ public class GeneralPluginPlatform implements PluginPlatform {
             return Optional.empty();
         }
 
-        Plugin plugin = loadPluginFromResources(pluginClassNameOpt.get());
+        Plugin plugin = loader.loadPlugin(pluginClassNameOpt.get());
         log.info("To {} found class {}", pluginName, plugin.getClass().getSimpleName());
 
         cachePlugin(pluginName, plugin);
@@ -82,31 +69,6 @@ public class GeneralPluginPlatform implements PluginPlatform {
         return Optional.of(plugin);
     }
 
-    private Plugin loadPluginFromResources(String pluginClass) {
-        Class clazz = null;
-        try {
-            clazz = classLoader.loadClass(pluginClass);
-        } catch (ClassNotFoundException e) {
-            log.error(""); // TODO
-            throw new IllegalStateException("", e);
-        }
-
-        Plugin plugin;
-
-        try {
-            plugin = (Plugin) clazz
-                    .getConstructor()
-                    .newInstance();
-        } catch (Exception e) {
-            log.error(""); // TODO
-            throw new IllegalStateException("", e);
-        }
-
-        // Внедряем туда все бины через Autowire
-        beanFactory.autowireBean(plugin);
-
-        return plugin;
-    }
 
     private void cachePlugin(String pluginName, Plugin plugin) {
         plugins.put(pluginName, PluginHolder.create(plugin));
