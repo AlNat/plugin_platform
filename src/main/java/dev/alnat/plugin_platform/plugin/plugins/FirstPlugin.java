@@ -18,7 +18,7 @@ public class FirstPlugin implements Plugin {
     @Override
     public PluginResponse call(PluginRequest request) {
         return PluginResponse.builder()
-                .response("Process response to request " + request.getSomeRequest())
+                .response("Process response to request " + request.getRequest())
                 .build();
     }
 

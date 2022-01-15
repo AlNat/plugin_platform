@@ -21,7 +21,7 @@ management:
       exposure:
         include: info, health, metrics
   server:
-    port: ${MANAGMENT_SERVER_PORT:88}
+    port: ${MANAGMENT_SERVER_PORT:88} # Выносим actuator на отдельный порт
 
 springdoc:
   swagger-ui:
@@ -35,4 +35,7 @@ springdoc:
 
 custom:
   plugins:
-    plugins-folder: ${PLUGIN_FOLDER:C:\plugins\example_plugins.jar}
+    plugins-folder: ${PLUGIN_FOLDER:C:\plugins\}
+    classes:
+      first: "dev.alnat.plugin_platform.plugin.plugins.FirstPlugin"
+      second: "dev.alnat.plugin_platform.plugin.plugins.SecondPlugin"

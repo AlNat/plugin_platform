@@ -1,7 +1,6 @@
 package dev.alnat.plugin_platform.config;
 
 import lombok.Data;
-import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
@@ -23,16 +22,13 @@ public class PluginConfig {
      * Конфигурация где ключ -- имя плагина, значение -- полный путь к классу
      *
      * Может быть в БД, файлах и тд
-     * Для удобства вшито в виде мапы
+     * Сейчас берется из application.yml
      */
-    private static final Map<String, String> PLUGIN_CLASSES = Map.of(
-            "first", "dev.alnat.plugin_platform.plugin.plugins.FirstPlugin",
-            "second", "dev.alnat.plugin_platform.plugin.plugins.SecondPlugin"
-    );
+    private Map<String, String> classes;
 
     public Optional<String> resolve(String name) {
-        if (PLUGIN_CLASSES.containsKey(name)) {
-            return Optional.of(PLUGIN_CLASSES.get(name));
+        if (classes.containsKey(name)) {
+            return Optional.of(classes.get(name));
         }
 
         return Optional.empty();
