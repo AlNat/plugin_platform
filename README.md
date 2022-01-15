@@ -1,5 +1,7 @@
 # Plugin Platform
 
+![CI](https://github.com/AlNat/plugin_platform/workflows/CI/badge.svg)
+
 Платформа для запуска различных адаптеров в рамках одного платформенного приложения.
 
 API -- http://localhost/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config
