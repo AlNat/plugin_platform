@@ -1,0 +1,29 @@
+@startuml
+
+actor "Внешняя система" as client
+participant "Платформа" as platform
+collections "Реестр плагинов" as registry
+control "Загрузчик плагинов" as loader
+entity "Плагин" as plugin
+
+title Схема работы
+
+client -> platform : Отправка запроса
+activate platform
+
+platform -> registry: Поиск плагина в кеше
+activate registry
+alt Плагин не найден в кеше
+    registry -> registry: Поиск настроек плагина
+    registry <-> loader: Загрузка плагина в кеш
+end
+return Сконфигурированный плагин
+
+platform -> plugin : Запуск задачи
+activate plugin
+    plugin -> plugin : Выполнение
+return Результат задачи
+
+return Результат выполнения плагина
+
+@enduml

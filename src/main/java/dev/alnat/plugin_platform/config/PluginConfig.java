@@ -23,7 +23,7 @@ public class PluginConfig {
      * Конфигурация где ключ -- имя плагина, значение -- полный путь к классу
      *
      * Может быть в БД, файлах и тд
-     * Для удобства сделан в виде мапы
+     * Для удобства вшито в виде мапы
      */
     private static final Map<String, String> PLUGIN_CLASSES = Map.of(
             "first", "dev.alnat.plugin_platform.plugin.plugins.FirstPlugin",
