@@ -1,11 +1,10 @@
-name: CI
+name: docker-build
 
 on:
-  # At any commit in dev or main
+  # At any tag of semverformat
   push:
-    branches:
-      - 'main'
-      - 'dev'
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+*'
 
 jobs:
   # Build by Maven and check tests
@@ -22,3 +21,5 @@ jobs:
 
     - name: Build with Maven
       run: mvn -B clean package --file pom.xml
+
+  # Create and push docker image as tag name

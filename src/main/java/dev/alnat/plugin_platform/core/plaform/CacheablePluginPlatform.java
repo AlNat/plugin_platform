@@ -78,7 +78,7 @@ public class CacheablePluginPlatform implements PluginPlatform {
             return Optional.empty();
         }
 
-        Plugin plugin = loader.loadPlugin(pluginClassNameOpt.get());
+        final Plugin plugin = loader.loadPlugin(pluginClassNameOpt.get());
         log.info("To [{}] found plugin class {}, cached it", pluginName, plugin.getClass().getSimpleName());
 
         cachePlugin(pluginName, plugin);
