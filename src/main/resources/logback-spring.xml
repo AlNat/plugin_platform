@@ -20,10 +20,11 @@
         </encoder>
     </appender>
 
-    <logger name="ru.a3" level="ALL"/>
+    <logger name="dev.alnat" level="INFO"/>
 
     <root level="INFO">
         <appender-ref ref="file" level="INFO"/>
         <appender-ref ref="CONSOLE" level="INFO"/>
     </root>
+
 </configuration>

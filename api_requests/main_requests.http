@@ -1,0 +1,23 @@
+# Вызов плагина
+
+POST http://localhost/api/platform/plugin/first
+Accept: application/json;charset=UTF-8
+Content-Type: application/json;charset=UTF-8
+
+{
+  "request": "test_data"
+}
+
+
+###
+
+# Получение статистки
+
+GET http://localhost/api/platform/statistics/first
+
+
+###
+
+# Очистка плагина
+
+DELETE http://localhost/api/platform/plugin/second

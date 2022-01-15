@@ -25,7 +25,7 @@ public class SecondPlugin implements Plugin {
     @SneakyThrows
     public PluginResponse call(PluginRequest request) {
         return PluginResponse.builder()
-                .response("Response to " + mapper.writeValueAsString(request))
+                .response("Json representation request is " + mapper.writeValueAsString(request))
                 .build();
     }
 

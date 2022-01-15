@@ -1,9 +1,9 @@
 @startuml
 
 actor "Внешняя система" as client
-participant "Платформа" as platform
-collections "Реестр плагинов" as registry
-control "Загрузчик плагинов" as loader
+participant "Платформа\nPluginPlatform" as platform
+collections "Реестр плагинов\nPluginPlatform" as registry
+control "Загрузчик плагинов\nPluginLoader" as loader
 entity "Плагин" as plugin
 
 title Схема работы
@@ -14,7 +14,7 @@ activate platform
 platform -> registry: Поиск плагина в кеше
 activate registry
 alt Плагин не найден в кеше
-    registry -> registry: Поиск настроек плагина
+    registry -> registry: Поиск настроек плагина\nPluginConfig
     registry <-> loader: Загрузка плагина в кеш
 end
 return Сконфигурированный плагин
